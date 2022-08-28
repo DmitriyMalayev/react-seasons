@@ -4,13 +4,17 @@ import ReactDOM from "react-dom/client";
 const el = document.getElementById("root");
 const root = ReactDOM.createRoot(el);
 
-const App = () => {
-  window.navigator.geolocation.getCurrentPosition(
-    (successCallback) => console.log(successCallback),
-    (errorCallBack) => console.log(errorCallBack)
-  );
+class App extends React.Component {
 
-  return <div></div>;
-};
+  render() {
+    window.navigator.geolocation.getCurrentPosition(
+      (successCallback) => console.log(successCallback),
+      (errorCallBack) => console.log(errorCallBack)
+    );
+
+    return <div>Latitude</div>;
+  }
+}
 
 root.render(<App />);
+
