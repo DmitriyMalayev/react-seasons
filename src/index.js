@@ -7,16 +7,24 @@ const root = ReactDOM.createRoot(el);
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { latitude: null  };
+    this.state = { latitude: null, errorMessage: "" };
+
+    window.navigator.geolocation.getCurrentPosition(
+      (successCallback) =>
+        this.setState({ latitude: successCallback.coords.latitude }),
+      (errorCallBack) => this.setState({ errorMessage: errorCallBack.message })
+    );
   }
 
   render() {
-    window.navigator.geolocation.getCurrentPosition(
-      (successCallback) => console.log(successCallback),
-      (errorCallBack) => console.log(errorCallBack)
-    );
+    if (this.state.errorMessage && !this.state.latitude) {
+      return <div>Error: {this.state.errorMessage}</div>;
+    }
+    if (this.state.latitude && !this.state.errorMessage) {
+      return <div>Latitude {this.state.latitude}</div>;
+    }
 
-    return <div>Latitude</div>;
+    return <div>Loading </div>;
   }
 }
 
