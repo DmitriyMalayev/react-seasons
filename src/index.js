@@ -1,29 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import SeasonDisplay from "./SeasonDisplay";
 
 const el = document.getElementById("root");
 const root = ReactDOM.createRoot(el);
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { latitude: null, errorMessage: "" };
-
+  state = { latitude: null, errorMessage: "" };
+  componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
       (successCallback) =>
         this.setState({ latitude: successCallback.coords.latitude }),
       (errorCallBack) => this.setState({ errorMessage: errorCallBack.message })
     );
   }
-
   render() {
     if (this.state.errorMessage && !this.state.latitude) {
       return <div>Error: {this.state.errorMessage}</div>;
     }
     if (this.state.latitude && !this.state.errorMessage) {
-      return <div>Latitude {this.state.latitude}</div>;
+      return <SeasonDisplay latitude={this.state.latitude} />;
+      //Taking state and passing it as a prop to a child
     }
-
     return <div>Loading </div>;
   }
 }
