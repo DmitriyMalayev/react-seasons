@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import SeasonDisplay from "./SeasonDisplay";
+import Spinner from "./Spinner";
 
 const el = document.getElementById("root");
 const root = ReactDOM.createRoot(el);
@@ -22,7 +23,7 @@ class App extends React.Component {
       return <SeasonDisplay latitude={this.state.latitude} />;
       //Taking state and passing it as a prop to a child
     }
-    return <div>Loading </div>;
+    return <Spinner message="Please accept location request" />;
   }
 }
 
