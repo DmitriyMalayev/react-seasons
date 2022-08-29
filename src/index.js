@@ -15,7 +15,8 @@ class App extends React.Component {
       (errorCallBack) => this.setState({ errorMessage: errorCallBack.message })
     );
   }
-  render() {
+
+  renderContent() {
     if (this.state.errorMessage && !this.state.latitude) {
       return <div>Error: {this.state.errorMessage}</div>;
     }
@@ -24,6 +25,10 @@ class App extends React.Component {
       //Taking state and passing it as a prop to a child
     }
     return <Spinner message="Please accept location request" />;
+  }
+
+  render() {
+    return <div className="border red">{this.renderContent()}</div>;
   }
 }
 
